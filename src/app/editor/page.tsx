@@ -14,7 +14,7 @@ export default function EditorPage({
       </div>
 
       <main className="flex-1">
-        <div className="container py-5">
+        <div className="container py-10">
           <h1 className="text-3xl font-bold tracking-tighter text-center sm:text-5xl text-balance">
             Editor
           </h1>

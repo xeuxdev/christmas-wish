@@ -141,7 +141,7 @@ export default function Home() {
                     </CardHeader>
                     <CardContent>
                       <Image
-                        alt={`Template ${index + 1}`}
+                        alt={`Image for Template ${index + 1}`}
                         className="object-cover w-full h-full"
                         height="200"
                         src={`/template-${index + 1}.webp`}

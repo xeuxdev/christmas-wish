@@ -11,12 +11,14 @@ export default function MessagePreview({
   color,
   fontSize,
   fontWeight,
+  bgOpacity,
 }: {
   message: string
   recipient: string
   color?: string
   fontSize?: number
   fontWeight: string
+  bgOpacity: number
 }) {
   const params = useSearchParams()
 
@@ -41,9 +43,14 @@ export default function MessagePreview({
             width="200"
           />
 
-          <div className="absolute inset-0 bg-black/60" />
           <div
-            className="absolute w-[90%] h-[80%] top-1/2 -translate-y-1/2 left-1/2 -translate-x-1/2 space-y-3"
+            className={`absolute inset-0 bg-black`}
+            style={{
+              opacity: `${bgOpacity}%`,
+            }}
+          />
+          <div
+            className="absolute w-full h-full p-5 space-y-3 overflow-y-scroll -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2"
             style={{
               color,
               fontSize: `${fontSize}px`,
@@ -51,7 +58,7 @@ export default function MessagePreview({
             }}
           >
             <p>Dear, {recipient}</p>
-            <p className="break-words break-all ">{message}</p>
+            <p className="break-words break-all text-pretty ">{message}</p>
           </div>
         </div>
       </CardContent>

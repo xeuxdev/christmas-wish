@@ -12,6 +12,7 @@ export default function Editor() {
   const [fontWeight, setFontWeight] = useState<
     "normal" | "medium" | "semibold" | "bold"
   >("medium")
+  const [bgOpacity, setBgOpacity] = useState(20)
 
   return (
     <>
@@ -21,6 +22,7 @@ export default function Editor() {
         color={color}
         fontSize={fontSize}
         fontWeight={fontWeight}
+        bgOpacity={bgOpacity}
       />
       <MessageEditor
         setMessage={setMessage}
@@ -28,6 +30,7 @@ export default function Editor() {
         setColor={setColor}
         setFontSize={setFontSize}
         setFontWeight={setFontWeight}
+        setBgOpacity={setBgOpacity}
       />
     </>
   )

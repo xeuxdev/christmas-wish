@@ -1,8 +1,9 @@
-import React from "react"
+import React, { useState } from "react"
 import { Label } from "../ui/label"
 import { Input } from "../ui/input"
 import { Textarea } from "../ui/textarea"
 import { Button } from "../ui/button"
+import { Slider } from "@/components/ui/slider"
 
 const colors = [
   "red",
@@ -25,6 +26,7 @@ export default function MessageEditor({
   setColor,
   setFontSize,
   setFontWeight,
+  setBgOpacity,
 }: {
   setMessage: React.Dispatch<React.SetStateAction<string>>
   setRecipient: React.Dispatch<React.SetStateAction<string>>
@@ -33,7 +35,16 @@ export default function MessageEditor({
     React.SetStateAction<"bold" | "normal" | "medium" | "semibold">
   >
   setFontSize: React.Dispatch<React.SetStateAction<number>>
+  setBgOpacity: React.Dispatch<React.SetStateAction<number>>
 }) {
+  const [messageLength, setMessageLength] = useState(0)
+
+  const handleMessageChange = (message: string) => {
+    if (message.length > 255) return
+    setMessageLength(message.length)
+    setMessage(message)
+  }
+
   return (
     <div>
       <h3 className="mb-4 text-lg font-bold">Message Editor</h3>
@@ -50,12 +61,13 @@ export default function MessageEditor({
         </div>
 
         <div className="space-y-2">
-          <Label htmlFor="name">Name of Receiver</Label>
+          <Label htmlFor="name">Message {messageLength} / 255</Label>
           <Textarea
             id="name"
-            placeholder=""
+            placeholder="enter your christmas wishes here"
             name="name"
-            onChange={(e) => setMessage(e.target.value)}
+            disabled={messageLength >= 255}
+            onChange={(e) => handleMessageChange(e.target.value)}
           />
         </div>
 
@@ -88,6 +100,19 @@ export default function MessageEditor({
               </Button>
             )
           })}
+        </div>
+
+        <div className="space-y-2">
+          <Label htmlFor="opacity">Background Darkness</Label>
+          <Slider
+            defaultValue={[20]}
+            max={100}
+            min={0}
+            step={1}
+            onValueChange={(val) => {
+              setBgOpacity(val[0])
+            }}
+          />
         </div>
 
         <div className="flex gap-4">

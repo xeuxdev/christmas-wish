@@ -53,7 +53,7 @@ const Mobile = () => {
   return (
     <Sheet>
       <SheetTrigger className="lg:hidden">
-        <Menu />
+        <Menu aria-label="Open Mobile menu" />
       </SheetTrigger>
       <SheetContent>
         <SheetHeader>

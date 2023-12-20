@@ -14,8 +14,11 @@ export default function Footer() {
           <Link href={"https://x.com/xeuxdev"}>xeuxdev</Link>
         </div>
 
-        <Link href={"https://github.com/xeuxdev/christmas-wish"}>
-          <GithubIcon />
+        <Link
+          href={"https://github.com/xeuxdev/christmas-wish"}
+          aria-label="Github link"
+        >
+          <GithubIcon aria-label="link to the source code" />
         </Link>
       </div>
     </footer>
