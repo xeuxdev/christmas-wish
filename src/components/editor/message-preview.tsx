@@ -23,7 +23,7 @@ export default function MessagePreview({
   const template = parseInt(params.get("template") || "1")
 
   return (
-    <Card className="shadow-lg">
+    <Card className="w-full shadow-lg">
       <CardHeader>
         <h3 className="text-lg font-bold">Message Preview</h3>
       </CardHeader>

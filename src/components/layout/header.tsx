@@ -15,7 +15,7 @@ export default function Navbar() {
     <header className="fixed top-0 left-0 z-50 flex items-center w-full h-16 px-4 bg-background lg:px-6 border-y">
       <Link className="flex items-center justify-center gap-5" href="/">
         <TreeSvg />
-        <span className="font-bold">Christmas Wish</span>
+        <span className="text-xs font-bold sm:text-base">Christmas Wish</span>
       </Link>
       <nav className="flex items-center gap-4 ml-auto sm:gap-6">
         <Desktop />

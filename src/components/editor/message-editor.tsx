@@ -73,7 +73,7 @@ export default function MessageEditor({
           />
         </div>
 
-        <div className="flex items-center gap-5">
+        <div className="flex flex-wrap items-center gap-5">
           <Label htmlFor="name">Font Weight</Label>
           {fontWeights.map((size) => {
             return (
