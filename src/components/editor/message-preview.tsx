@@ -4,23 +4,13 @@ import React from "react"
 import { CardHeader, CardContent, Card } from "@/components/ui/card"
 import Image from "next/image"
 import { useSearchParams } from "next/navigation"
+import { useEditorContext } from "./editor-context"
 
-export default function MessagePreview({
-  message,
-  recipient: recipient,
-  color,
-  fontSize,
-  fontWeight,
-  bgOpacity,
-}: {
-  message: string
-  recipient: string
-  color?: string
-  fontSize?: number
-  fontWeight: string
-  bgOpacity: number
-}) {
+export default function MessagePreview() {
   const params = useSearchParams()
+
+  const { bgOpacity, color, fontSize, fontWeight, message, recipient } =
+    useEditorContext()
 
   const template = parseInt(params.get("template") || "1")
 

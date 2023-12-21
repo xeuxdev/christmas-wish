@@ -4,6 +4,7 @@ import { Input } from "../ui/input"
 import { Textarea } from "../ui/textarea"
 import { Button } from "../ui/button"
 import { Slider } from "@/components/ui/slider"
+import { useEditorContext } from "./editor-context"
 
 const colors = [
   "red",
@@ -20,23 +21,15 @@ const colors = [
 
 const fontWeights = ["bold", "normal", "medium", "semibold"] as const
 
-export default function MessageEditor({
-  setMessage,
-  setRecipient,
-  setColor,
-  setFontSize,
-  setFontWeight,
-  setBgOpacity,
-}: {
-  setMessage: React.Dispatch<React.SetStateAction<string>>
-  setRecipient: React.Dispatch<React.SetStateAction<string>>
-  setColor: React.Dispatch<React.SetStateAction<string>>
-  setFontWeight: React.Dispatch<
-    React.SetStateAction<"bold" | "normal" | "medium" | "semibold">
-  >
-  setFontSize: React.Dispatch<React.SetStateAction<number>>
-  setBgOpacity: React.Dispatch<React.SetStateAction<number>>
-}) {
+export default function MessageEditor() {
+  const {
+    setBgOpacity,
+    setColor,
+    setFontSize,
+    setFontWeight,
+    setMessage,
+    setRecipient,
+  } = useEditorContext()
   const [messageLength, setMessageLength] = useState(0)
 
   const handleMessageChange = (message: string) => {
