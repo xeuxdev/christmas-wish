@@ -4,7 +4,9 @@ import React, { createContext, useContext, useState } from "react"
 
 type EditorContextType = {
   setMessage: React.Dispatch<React.SetStateAction<string>>
-  setFontWeight: React.Dispatch<React.SetStateAction<string>>
+  setFontWeight: React.Dispatch<
+    React.SetStateAction<"medium" | "semibold" | "bold" | "normal">
+  >
   setColor: React.Dispatch<React.SetStateAction<string>>
   setRecipient: React.Dispatch<React.SetStateAction<string>>
   setFontSize: React.Dispatch<React.SetStateAction<number>>
@@ -17,16 +19,16 @@ type EditorContextType = {
   bgOpacity: number
 }
 
-const EditorContext = createContext<EditorContextType | null>(
-  {} as EditorContextType
-)
+const EditorContext = createContext<EditorContextType>({} as EditorContextType)
 
 export const EditorProvider = ({ children }: { children: React.ReactNode }) => {
   const [message, setMessage] = useState("")
   const [recipient, setRecipient] = useState("")
   const [color, setColor] = useState("")
   const [fontSize, setFontSize] = useState(20)
-  const [fontWeight, setFontWeight] = useState("medium")
+  const [fontWeight, setFontWeight] = useState<
+    "normal" | "medium" | "semibold" | "bold"
+  >("medium")
   const [bgOpacity, setBgOpacity] = useState(20)
 
   const contextValue = {
