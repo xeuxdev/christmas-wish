@@ -116,7 +116,6 @@ export default function MessageEditor({
         </div>
 
         <div className="flex gap-4">
-          <Button type="button">Save</Button>
           <Button type="button">Send</Button>
           <Button type="button">Preview</Button>
         </div>
