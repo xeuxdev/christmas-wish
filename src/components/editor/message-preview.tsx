@@ -1,18 +1,37 @@
 "use client"
 
-import React from "react"
+import React, { useEffect, useState } from "react"
 import { CardHeader, CardContent, Card } from "@/components/ui/card"
 import Image from "next/image"
 import { useSearchParams } from "next/navigation"
 import { useAppStore } from "@/store/message"
+import { Loader } from "lucide-react"
 
 export default function MessagePreview() {
   const params = useSearchParams()
+  const [isMounted, setIsMounted] = useState(false)
 
   const { bgOpacity, color, fontSize, fontWeight, message, recipient } =
     useAppStore()
 
   const template = parseInt(params.get("template") || "1")
+
+  useEffect(() => {
+    setIsMounted(true)
+  }, [])
+
+  if (!isMounted) {
+    return (
+      <Card className="w-full shadow-lg">
+        <CardHeader>
+          <h3 className="text-lg font-bold">Message Preview</h3>
+        </CardHeader>
+        <CardContent>
+          <Loader className="animate-spin" />
+        </CardContent>
+      </Card>
+    )
+  }
 
   return (
     <Card className="w-full shadow-lg">
@@ -47,7 +66,7 @@ export default function MessagePreview() {
               fontWeight,
             }}
           >
-            {/* <div>Dear, {recipient}</div> */}
+            <p>Dear, {recipient}</p>
             <p className="break-words break-all text-pretty ">{message}</p>
           </div>
         </div>
