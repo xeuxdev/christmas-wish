@@ -1,10 +1,11 @@
+"use client"
 import React, { useState } from "react"
 import { Label } from "../ui/label"
 import { Input } from "../ui/input"
 import { Textarea } from "../ui/textarea"
 import { Button } from "../ui/button"
 import { Slider } from "@/components/ui/slider"
-import { useEditorContext } from "./editor-context"
+import { useAppStore } from "@/store/message"
 
 const colors = [
   "red",
@@ -23,19 +24,21 @@ const fontWeights = ["bold", "normal", "medium", "semibold"] as const
 
 export default function MessageEditor() {
   const {
-    setBgOpacity,
-    setColor,
-    setFontSize,
-    setFontWeight,
-    setMessage,
-    setRecipient,
-  } = useEditorContext()
+    setValues,
+    recipient,
+    message,
+    fontWeight,
+    bgOpacity,
+    color,
+    fontSize,
+  } = useAppStore()
+
   const [messageLength, setMessageLength] = useState(0)
 
   const handleMessageChange = (message: string) => {
     if (message.length > 255) return
     setMessageLength(message.length)
-    setMessage(message)
+    setValues({ message: message })
   }
 
   return (
@@ -49,7 +52,8 @@ export default function MessageEditor() {
             id="name"
             placeholder=""
             name="name"
-            onChange={(e) => setRecipient(e.target.value)}
+            defaultValue={recipient}
+            onChange={(e) => setValues({ recipient: e.target.value })}
           />
         </div>
 
@@ -59,6 +63,7 @@ export default function MessageEditor() {
             id="name"
             placeholder="enter your christmas wishes here"
             name="name"
+            defaultValue={message}
             disabled={messageLength >= 255}
             onChange={(e) => handleMessageChange(e.target.value)}
           />
@@ -66,14 +71,18 @@ export default function MessageEditor() {
 
         <div className="space-y-3 w-fit">
           <Label>Enter Color</Label>
-          <Input type="color" onChange={(e) => setColor(e.target.value)} />
+          <Input
+            type="color"
+            defaultValue={color}
+            onChange={(e) => setValues({ color: e.target.value })}
+          />
         </div>
 
         <div className="space-y-3 w-fit">
           <Label>Select Font Size</Label>
           <Input
             type="number"
-            onChange={(e) => setFontSize(parseInt(e.target.value))}
+            onChange={(e) => setValues({ fontSize: parseInt(e.target.value) })}
             defaultValue={20}
           />
         </div>
@@ -87,7 +96,8 @@ export default function MessageEditor() {
                 type="button"
                 variant={"outline"}
                 size={"sm"}
-                onClick={() => setFontWeight(size)}
+                defaultValue={fontWeight}
+                onClick={() => setValues({ fontWeight: size })}
               >
                 {size}
               </Button>
@@ -98,12 +108,12 @@ export default function MessageEditor() {
         <div className="space-y-2">
           <Label htmlFor="opacity">Background Darkness</Label>
           <Slider
-            defaultValue={[20]}
+            defaultValue={[bgOpacity]}
             max={100}
             min={0}
             step={1}
             onValueChange={(val) => {
-              setBgOpacity(val[0])
+              setValues({ bgOpacity: val[0] })
             }}
           />
         </div>

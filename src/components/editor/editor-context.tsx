@@ -1,6 +1,6 @@
 "use client"
 
-import React, { createContext, useContext, useState } from "react"
+import React, { createContext, useContext, useEffect, useState } from "react"
 
 type EditorContextType = {
   setMessage: React.Dispatch<React.SetStateAction<string>>
@@ -53,7 +53,6 @@ export const EditorProvider = ({ children }: { children: React.ReactNode }) => {
   )
 }
 
-// Step 4: Create a custom hook to access the context values
 export const useEditorContext = () => {
   return useContext(EditorContext)
 }

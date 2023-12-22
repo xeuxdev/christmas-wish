@@ -4,13 +4,13 @@ import React from "react"
 import { CardHeader, CardContent, Card } from "@/components/ui/card"
 import Image from "next/image"
 import { useSearchParams } from "next/navigation"
-import { useEditorContext } from "./editor-context"
+import { useAppStore } from "@/store/message"
 
 export default function MessagePreview() {
   const params = useSearchParams()
 
   const { bgOpacity, color, fontSize, fontWeight, message, recipient } =
-    useEditorContext()
+    useAppStore()
 
   const template = parseInt(params.get("template") || "1")
 
@@ -47,7 +47,7 @@ export default function MessagePreview() {
               fontWeight,
             }}
           >
-            <p>Dear, {recipient}</p>
+            {/* <div>Dear, {recipient}</div> */}
             <p className="break-words break-all text-pretty ">{message}</p>
           </div>
         </div>
