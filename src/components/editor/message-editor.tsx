@@ -69,14 +69,14 @@ export default function MessageEditor() {
     setIsMounted(true)
   }, [])
 
-  // if (!isMounted) {
-  //   return (
-  //     <div className="space-y-4">
-  //       <h3 className="text-lg font-bold">Message Editor</h3>
-  //       <Loader className="animate-spin" />
-  //     </div>
-  //   )
-  // }
+  if (!isMounted) {
+    return (
+      <div className="space-y-4">
+        <h3 className="text-lg font-bold">Message Editor</h3>
+        <Loader className="animate-spin" />
+      </div>
+    )
+  }
 
   return (
     <div>
