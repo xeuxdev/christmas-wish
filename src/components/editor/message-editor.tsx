@@ -34,7 +34,6 @@ export default function MessageEditor() {
   const [messageLength, setMessageLength] = useState(0)
   const [isPlaying, setIsPlaying] = useState(false)
   const [isMounted, setIsMounted] = useState(false)
-  // const audioRef = useRef(new Audio(`/music/${musicPath}.mp3`))
 
   const handleMessageChange = (message: string) => {
     if (message.length > 255) return
@@ -46,29 +45,18 @@ export default function MessageEditor() {
     setIsPlaying(!isPlaying)
   }
 
-  // const handleTogglePlay = () => {
-  //   if (isPlaying) {
-  //     audioRef.current.pause()
-  //   } else {
-  //     audioRef.current.play()
-  //   }
-  //   setIsPlaying(!isPlaying)
-  // }
-
   useEffect(() => {
     setIsMounted(true)
   }, [])
 
-  if (!isMounted) {
-    return (
-      <>
-        <h3 className="text-lg font-bold">Message Editor</h3>
-        <Loader className="animate-spin" />
-      </>
-    )
-  }
-
-  console.log(musicPath)
+  // if (!isMounted) {
+  //   return (
+  //     <div className="space-y-4">
+  //       <h3 className="text-lg font-bold">Message Editor</h3>
+  //       <Loader className="animate-spin" />
+  //     </div>
+  //   )
+  // }
 
   return (
     <div>
@@ -149,12 +137,15 @@ export default function MessageEditor() {
 
         <div className="space-y-2">
           <div className="w-10 h-10">
-            <ReactPlayer
-              url={`/music/${musicPath}.mp3`}
-              playing={isPlaying}
-              controls={false}
-              // hide built-in controls
-            />
+            {isMounted ? (
+              <ReactPlayer
+                url={`/music/${musicPath}.mp3`}
+                playing={isPlaying}
+                controls={false}
+                height={40}
+                width={40}
+              />
+            ) : null}
           </div>
           <Select
             onValueChange={(value) => setValues({ musicPath: `${value}` })}
