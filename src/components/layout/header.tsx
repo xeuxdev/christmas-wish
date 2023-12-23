@@ -57,9 +57,11 @@ const Mobile = () => {
       </SheetTrigger>
       <SheetContent>
         <SheetHeader>
-          <Link className="flex items-center gap-5" href="/">
-            <BellRingIcon className="w-6 h-6" />
-            <span className="font-bold">Christmas Wish</span>
+          <Link className="flex items-center justify-center gap-5" href="/">
+            <TreeSvg />
+            <span className="text-xs font-bold sm:text-base">
+              Christmas Wish
+            </span>
           </Link>
         </SheetHeader>
 
