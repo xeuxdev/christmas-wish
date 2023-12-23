@@ -8,6 +8,7 @@ interface AppStore {
   color: string
   fontSize: number
   fontWeight: "normal" | "medium" | "semibold" | "bold"
+  template: number
   bgOpacity: number
   musicPath: string
   setValues: (values: Partial<AppStore>) => void
@@ -22,6 +23,7 @@ export const useAppStore = create<AppStore>()(
       fontSize: 20,
       fontWeight: "medium",
       musicPath: "/music/bells",
+      template: 1,
       bgOpacity: 20,
       setValues: (values) => set((state) => ({ ...state, ...values })),
     }),

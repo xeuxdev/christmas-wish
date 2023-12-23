@@ -9,11 +9,12 @@ import {
 } from "lucide-react"
 import Image from "next/image"
 import { Button } from "@/components/ui/button"
+import TemplatesTab from "@/components/templates"
 
 export default function Home() {
   return (
     <main className="flex-1">
-      <section className="w-full pt-24 md:pt-32 lg:pt-52 ">
+      <section className="w-full pt-28 md:pt-32 lg:pt-52 ">
         <div className="px-4 space-y-10 md:px-6 xl:space-y-16">
           <div className="grid max-w-5xl gap-4 px-4 mx-auto sm:px-6 md:px-10 md:gap-16">
             <div className="flex flex-col items-center space-y-4">
@@ -128,34 +129,7 @@ export default function Home() {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
-            {Array(4)
-              .fill(0)
-              .map((_, index) => (
-                <Link key={index} href={`/editor?template=${index + 1}`}>
-                  <Card>
-                    <CardHeader>
-                      <h3 className="text-lg font-bold">
-                        Template {index + 1}
-                      </h3>
-                    </CardHeader>
-                    <CardContent>
-                      <Image
-                        alt={`Image for Template ${index + 1}`}
-                        className="object-cover w-full h-full"
-                        height="200"
-                        src={`/template-${index + 1}.webp`}
-                        style={{
-                          aspectRatio: "200/200",
-                          objectFit: "cover",
-                        }}
-                        width="200"
-                      />
-                    </CardContent>
-                  </Card>
-                </Link>
-              ))}
-          </div>
+          <TemplatesTab />
         </div>
       </section>
     </main>

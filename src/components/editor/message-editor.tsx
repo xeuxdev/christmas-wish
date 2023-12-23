@@ -15,7 +15,9 @@ import {
   SelectValue,
 } from "@/components/ui/select"
 import ReactPlayer from "react-player"
-import { Loader } from "lucide-react"
+import { Loader, PauseIcon, PlayIcon } from "lucide-react"
+import { useSearchParams } from "next/navigation"
+import { predefinedTemplates } from "@/lib/data"
 
 const fontWeights = ["bold", "normal", "medium", "semibold"] as const
 
@@ -34,6 +36,24 @@ export default function MessageEditor() {
   const [messageLength, setMessageLength] = useState(0)
   const [isPlaying, setIsPlaying] = useState(false)
   const [isMounted, setIsMounted] = useState(false)
+
+  const params = useSearchParams()
+
+  const template = parseInt(params.get("template") || "1")
+  const state = params.get("state") || "empty"
+
+  useEffect(() => {
+    if (state == "pre-defined") {
+      const values = predefinedTemplates.find(
+        (temp) => temp.template === template
+      )
+
+      if (values) {
+        setValues(values)
+      }
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [state])
 
   const handleMessageChange = (message: string) => {
     if (message.length > 255) return
@@ -135,41 +155,44 @@ export default function MessageEditor() {
           />
         </div>
 
-        <div className="space-y-2">
-          <div className="w-10 h-10">
-            {isMounted ? (
-              <ReactPlayer
-                url={`/music/${musicPath}.mp3`}
-                playing={isPlaying}
-                controls={false}
-                height={40}
-                width={40}
-              />
-            ) : null}
-          </div>
-          <Select
-            onValueChange={(value) => setValues({ musicPath: `${value}` })}
-            defaultValue={musicPath}
-          >
-            <SelectTrigger className="w-[200px]">
-              <SelectValue placeholder="Select Music" />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="bells">Bells</SelectItem>
-              <SelectItem value="carol-of-the-bells">
-                Carol Of the bells
-              </SelectItem>
-              <SelectItem value="deck-the-halls">Deck the halls</SelectItem>
-              <SelectItem value="jingle-bells">Jingle Bells</SelectItem>
-              <SelectItem value="we-wish-you-a-merry-christmas">
-                Merry Christmas
-              </SelectItem>
-            </SelectContent>
-          </Select>
+        <div className="pb-5 space-y-2">
+          <Label>Select Music</Label>
 
-          <div>
+          <div className="flex items-center gap-5 space-y-4">
+            <Select
+              onValueChange={(value) => setValues({ musicPath: `${value}` })}
+              defaultValue={musicPath}
+            >
+              <SelectTrigger className="w-[200px]">
+                <SelectValue placeholder="Select Music" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="bells">Bells</SelectItem>
+                <SelectItem value="carol-of-the-bells">
+                  Carol Of the bells
+                </SelectItem>
+                <SelectItem value="deck-the-halls">Deck the halls</SelectItem>
+                <SelectItem value="jingle-bells">Jingle Bells</SelectItem>
+                <SelectItem value="we-wish-you-a-merry-christmas">
+                  Merry Christmas
+                </SelectItem>
+              </SelectContent>
+            </Select>
+            <div className="w-10 h-10 ">
+              {isMounted ? (
+                <ReactPlayer
+                  url={`/music/${musicPath}.mp3`}
+                  playing={isPlaying}
+                  controls={false}
+                  height={40}
+                  width={40}
+                />
+              ) : null}
+            </div>
+          </div>
+          <div className="flex items-center justify-center p-3 mt-10 rounded-full w-fit ring-2 ring-ring">
             <button onClick={handleTogglePlay}>
-              {isPlaying ? "Pause" : "Play"}
+              {isPlaying ? <PauseIcon /> : <PlayIcon />}
             </button>
           </div>
         </div>
