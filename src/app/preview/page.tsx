@@ -49,7 +49,7 @@ export default function PreviewPage() {
   }
 
   return (
-    <main className="relative flex-1 w-screen h-screen">
+    <main className="relative flex-1 w-screen h-screen overflow-clip">
       <Image
         src={`/template-${template}.webp`}
         alt="Preview"
@@ -85,8 +85,7 @@ export default function PreviewPage() {
         </p>
       </div>
 
-      <div className="absolute bottom-5 left-5">
-        {/* {isMounted && ( */}
+      <div className="absolute bottom-10 left-5">
         <div className="w-10 h-10 ">
           <ReactPlayer
             url={`/music/${musicPath}.mp3`}
@@ -96,7 +95,6 @@ export default function PreviewPage() {
             width={40}
           />
         </div>
-        {/* )} */}
         <div className="flex items-center justify-center p-3 mt-10 rounded-full w-fit ring-2 ring-ring">
           <button onClick={handleTogglePlay}>
             {isPlaying ? <PauseIcon /> : <PlayIcon />}
@@ -104,7 +102,7 @@ export default function PreviewPage() {
         </div>
       </div>
 
-      <div className="absolute bottom-5 right-5">
+      <div className="absolute bottom-10 right-5">
         <SendButton />
       </div>
     </main>

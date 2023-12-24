@@ -50,7 +50,7 @@ export async function POST(request: Request) {
 
   return NextResponse.json(
     {
-      message: "Wish Saved Successfully",
+      message: "Wish / Message Saved Successfully",
       wishId: saveMessage.wishId,
     },
     {
