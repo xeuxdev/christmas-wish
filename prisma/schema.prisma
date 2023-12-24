@@ -1,0 +1,27 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+model Wish {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+
+  wishId String @unique
+
+  template   Int
+  message    String
+  recipient  String
+  color      String
+  fontSize   Int    @default(20)
+  fontWeight String @default("medium")
+  musicPath  String @default("/music/bells")
+  bgOpacity  Int    @default(20)
+  greeting   String @default("Dear")
+}

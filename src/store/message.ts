@@ -11,6 +11,7 @@ interface AppStore {
   template: number
   bgOpacity: number
   musicPath: string
+  greeting: string
   setValues: (values: Partial<AppStore>) => void
 }
 
@@ -25,6 +26,7 @@ export const useAppStore = create<AppStore>()(
       musicPath: "/music/bells",
       template: 1,
       bgOpacity: 20,
+      greeting: "Dear",
       setValues: (values) => set((state) => ({ ...state, ...values })),
     }),
     {

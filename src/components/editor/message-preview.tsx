@@ -20,6 +20,7 @@ export default function MessagePreview() {
     message,
     recipient,
     setValues,
+    greeting,
   } = useAppStore()
 
   const template = parseInt(params.get("template") || "1")
@@ -80,7 +81,9 @@ export default function MessagePreview() {
               fontWeight,
             }}
           >
-            <p>Dear, {recipient}</p>
+            <p>
+              {greeting}, {recipient}
+            </p>
             <p className="break-words break-all text-pretty ">{message}</p>
           </div>
         </div>

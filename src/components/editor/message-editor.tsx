@@ -18,6 +18,8 @@ import ReactPlayer from "react-player"
 import { Loader, PauseIcon, PlayIcon } from "lucide-react"
 import { useSearchParams } from "next/navigation"
 import { predefinedTemplates } from "@/lib/data"
+import Link from "next/link"
+import SendButton from "../send-button"
 
 const fontWeights = ["bold", "normal", "medium", "semibold"] as const
 
@@ -31,6 +33,7 @@ export default function MessageEditor() {
     color,
     fontSize,
     musicPath,
+    greeting,
   } = useAppStore()
 
   const [messageLength, setMessageLength] = useState(0)
@@ -44,13 +47,27 @@ export default function MessageEditor() {
 
   useEffect(() => {
     if (state == "pre-defined") {
-      const values = predefinedTemplates.find(
-        (temp) => temp.template === template
-      )
+      if (!message || !recipient) {
+        const values = predefinedTemplates.find(
+          (temp) => temp.template === template
+        )
 
-      if (values) {
-        setValues(values)
+        if (values) {
+          setValues(values)
+        }
       }
+    } else if (state == "empty") {
+      setValues({
+        template: template,
+        bgOpacity: 20,
+        color: "#fff",
+        fontSize: 24,
+        fontWeight: "medium",
+        musicPath: "bells",
+        greeting: "Dear",
+        recipient: "",
+        message: "",
+      })
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [state])
@@ -83,6 +100,17 @@ export default function MessageEditor() {
       <h3 className="mb-4 text-lg font-bold">Message Editor</h3>
 
       <section className="space-y-6">
+        <div className="space-y-2">
+          <Label htmlFor="name">Greeting</Label>
+          <Input
+            id="greeting"
+            placeholder="Dear.."
+            name="greeting"
+            defaultValue={greeting}
+            onChange={(e) => setValues({ greeting: e.target.value })}
+          />
+        </div>
+
         <div className="space-y-2">
           <Label htmlFor="name">Name of Receiver</Label>
           <Input
@@ -198,8 +226,10 @@ export default function MessageEditor() {
         </div>
 
         <div className="flex gap-4">
-          <Button type="button">Send</Button>
-          <Button type="button">Preview</Button>
+          <SendButton />
+          <Button type="button">
+            <Link href={"/preview"}>Preview</Link>
+          </Button>
         </div>
       </section>
     </div>
