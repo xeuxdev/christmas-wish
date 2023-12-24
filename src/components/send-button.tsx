@@ -3,6 +3,7 @@ import { Button } from "./ui/button"
 import { useAppStore } from "@/store/message"
 import { MessageProps } from "@/types"
 import useSWRMutation from "swr/mutation"
+import { Loader } from "lucide-react"
 
 async function sendRequest(url: string, { arg }: { arg: MessageProps }) {
   return fetch(url, {
@@ -52,7 +53,13 @@ export default function SendButton() {
 
   return (
     <Button type="button" disabled={isMutating} onClick={handleSaveWish}>
-      {isMutating ? "Sending..." : "Send"}
+      {isMutating ? (
+        <>
+          <Loader className="mr-2 animate-spin" /> Sending...{" "}
+        </>
+      ) : (
+        "Send"
+      )}
     </Button>
   )
 }
