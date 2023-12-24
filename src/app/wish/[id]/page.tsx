@@ -1,20 +1,20 @@
 import React from "react"
 import MessageDisplay from "./message-display"
 import { MessageProps } from "@/types"
-
-const url =
-  process.env.NODE_ENV === "production"
-    ? "https://xmas-wish.vercel.app"
-    : "http://localhost:3000"
+import { notFound } from "next/navigation"
+import { BASE_URL } from "@/lib/utils"
 
 export default async function WishPage({ params }: { params: { id: string } }) {
-  const request = await fetch(`${url}/api/messages/${params.id}`, {
+  const request = await fetch(`${BASE_URL}/api/messages/${params.id}`, {
     cache: "force-cache",
   })
 
   const messageInfo = (await request.json()) as MessageProps
 
-  console.log(messageInfo)
+  //   @ts-ignore
+  if (messageInfo.status) {
+    notFound()
+  }
 
   return <MessageDisplay {...messageInfo} />
 }

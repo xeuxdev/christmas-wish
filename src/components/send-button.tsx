@@ -104,13 +104,8 @@ function SuccessDialog({
       <Dialog open={openSuccessDialog} onOpenChange={setOpenSuccessDialog}>
         <DialogContent>
           <Contents result={result} />
+          <Button variant="outline">Close</Button>
         </DialogContent>
-
-        <DialogFooter>
-          <DialogClose>
-            <Button variant="outline">Close</Button>
-          </DialogClose>
-        </DialogFooter>
       </Dialog>
     )
   }

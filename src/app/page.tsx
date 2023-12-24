@@ -11,7 +11,43 @@ import Image from "next/image"
 import { Button } from "@/components/ui/button"
 import TemplatesTab from "@/components/templates"
 import Navbar from "@/components/layout/header"
+import { Metadata } from "next"
+import { BASE_URL } from "@/lib/utils"
 
+export const metadata: Metadata = {
+  title: "Christmas Wish",
+  description:
+    " Send Personalized Christmas Wishes -   Create, edit, and share beautiful Christmas messages with your loved ones.",
+  creator: "Next.js",
+  category: "Christmas",
+  generator: "Next.js",
+  keywords: [
+    "Christmas",
+    "Wishes",
+    "loved ones",
+    "friends",
+    "messages",
+    "fun",
+    "Santa",
+  ],
+  openGraph: {
+    url: "https://xmas-wish.vercel.app/",
+    siteName: "Christmas Wish",
+    authors: ["xeuxdev"],
+    description:
+      " Send Personalized Christmas Wishes -   Create, edit, and share beautiful Christmas messages with your loved ones.",
+    title: "Christmas Wish",
+  },
+  twitter: {
+    title: "Christmas Wish",
+    description:
+      " Send Personalized Christmas Wishes -   Create, edit, and share beautiful Christmas messages with your loved ones.",
+    site: "https://xmas-wish.vercel.app/",
+    creator: "https://x.com/xeuxdev",
+    card: "player",
+  },
+  metadataBase: BASE_URL as unknown as URL,
+}
 export default function Home() {
   return (
     <>

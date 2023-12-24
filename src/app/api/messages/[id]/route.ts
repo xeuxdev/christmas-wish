@@ -28,6 +28,7 @@ export async function GET(
     return NextResponse.json(
       {
         message: "eyahh!! sorry message not found otilo 😂",
+        status: 400,
       },
       {
         status: 400,

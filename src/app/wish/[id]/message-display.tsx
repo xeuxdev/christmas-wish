@@ -1,9 +1,11 @@
 "use client"
 
+import { Button } from "@/components/ui/button"
 import { MessageProps } from "@/types"
 import { PauseIcon, PlayIcon } from "lucide-react"
 import Image from "next/image"
-import { useEffect, useRef, useState } from "react"
+import Link from "next/link"
+import { useEffect, useState } from "react"
 import ReactPlayer from "react-player"
 
 export default function MessageDisplay(props: MessageProps) {
@@ -33,7 +35,7 @@ export default function MessageDisplay(props: MessageProps) {
   useEffect(() => {
     const timeout = setTimeout(() => {
       setIsPlaying(true)
-    }, 3000)
+    }, 1000)
 
     return () => clearTimeout(timeout)
   }, [])
@@ -96,6 +98,12 @@ export default function MessageDisplay(props: MessageProps) {
             {isPlaying ? <PauseIcon /> : <PlayIcon />}
           </button>
         </div>
+      </div>
+
+      <div className="absolute bottom-10 right-5">
+        <Button asChild>
+          <Link href={"/#templates"}>Creates Yours</Link>
+        </Button>
       </div>
     </main>
   )
