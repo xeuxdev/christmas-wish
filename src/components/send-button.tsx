@@ -9,6 +9,7 @@ import { useMediaQuery } from "@/hooks/use-media-query"
 import { Drawer, DrawerClose, DrawerContent, DrawerFooter } from "./ui/drawer"
 import { Icons } from "./icons"
 import Link from "next/link"
+import { BASE_URL } from "@/lib/utils"
 
 type SuccessDialogType = {
   openSuccessDialog: boolean
@@ -141,15 +142,15 @@ function Contents({
     let url
 
     if (social === "facebook") {
-      url = `https://www.facebook.com/messages?text=Heyy%20👋👋,%20prepared%20something%20for%20you,%20check%20it%20out%20https://xmas-wish.vercel.app/wish/${result?.wishId}`
+      url = `https://www.facebook.com/messages?text=Heyy%20👋👋,%20prepared%20something%20for%20you,%20check%20it%20out%20${BASE_URL}/wish/${result?.wishId}`
     }
 
     if (social === "whatsapp") {
-      url = `https://api.whatsapp.com/send?text=https://christmas-wish.vercel.app/wish/${result?.wishId}`
+      url = `https://api.whatsapp.com/send?text=${BASE_URL}/wish/${result?.wishId}`
     }
 
     if (social === "twitter") {
-      url = `https://twitter.com/messages/compose?text=Heyy%20👋👋,%20prepared%20something%20for%20you,%20check%20it%20out%20https://xmas-wish.vercel.app/wish/${result?.wishId}`
+      url = `https://twitter.com/messages/compose?text=Heyy%20👋👋,%20prepared%20something%20for%20you,%20check%20it%20out%20${BASE_URL}/wish/${result?.wishId}`
     }
 
     return url
