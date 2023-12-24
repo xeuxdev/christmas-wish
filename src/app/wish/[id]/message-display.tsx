@@ -1,12 +1,12 @@
 "use client"
 
+import AudioPlayer from "@/components/audio-player"
 import { Button } from "@/components/ui/button"
 import { MessageProps } from "@/types"
-import { PauseIcon, PlayIcon } from "lucide-react"
+import { Loader } from "lucide-react"
 import Image from "next/image"
 import Link from "next/link"
-import { useEffect, useState } from "react"
-import ReactPlayer from "react-player"
+import { useEffect, useRef, useState } from "react"
 
 export default function MessageDisplay(props: MessageProps) {
   const {
@@ -21,24 +21,20 @@ export default function MessageDisplay(props: MessageProps) {
     template,
   } = props
 
-  const [isPlaying, setIsPlaying] = useState(false)
   const [isMounted, setIsMounted] = useState(false)
-
-  const handleTogglePlay = () => {
-    setIsPlaying(!isPlaying)
-  }
+  const [showContent, setshowContent] = useState(false)
 
   useEffect(() => {
     setIsMounted(true)
   }, [])
 
-  useEffect(() => {
-    const timeout = setTimeout(() => {
-      setIsPlaying(true)
-    }, 1000)
-
-    return () => clearTimeout(timeout)
-  }, [])
+  if (!isMounted) {
+    return (
+      <div className="flex items-center justify-center w-screen h-screen">
+        <Loader className="w-10 h-10 md:w-20 animate-spin" />
+      </div>
+    )
+  }
 
   return (
     <main className="relative w-screen h-screen overflow-hidden">
@@ -46,63 +42,52 @@ export default function MessageDisplay(props: MessageProps) {
         src={`/template-${template}.webp`}
         alt="Preview"
         fill
-        className="object-cover"
+        className="object-cover overflow-hidden"
       />
 
       <div
-        className="absolute inset-0 w-full h-full bg-black"
+        className="absolute inset-0 w-full h-full bg-black overflow-clip"
         style={{ opacity: `${bgOpacity}%` }}
       />
 
-      <div className="absolute -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2 w-[90%] sm:w-[75%]">
-        <p
-          style={{
-            color,
-            fontSize: fontSize - 5,
-            fontWeight,
-          }}
-          className="mb-3"
-        >
-          {greeting} {recipient},
-        </p>
+      <div className="absolute -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2 w-[90%] sm:w-[75%] flex flex-col justify-center">
+        {showContent ? (
+          <>
+            <p
+              style={{
+                color,
+                fontSize: fontSize - 5,
+                fontWeight,
+              }}
+              className="mb-3"
+            >
+              {greeting} {recipient},
+            </p>
 
-        <p
-          style={{
-            color,
-            fontSize,
-            fontWeight,
-          }}
-        >
-          {message}
-        </p>
+            <p
+              style={{
+                color,
+                fontSize,
+                fontWeight,
+              }}
+            >
+              {message}
+            </p>
+          </>
+        ) : (
+          <Button onClick={() => setshowContent(true)} className="mx-auto">
+            Show Message
+          </Button>
+        )}
       </div>
 
       <div className="absolute bottom-10 left-5">
-        <div className="w-10 h-10 ">
-          {isMounted && (
-            <ReactPlayer
-              url={`/music/${musicPath}.mp3`}
-              playing={isPlaying}
-              controls={false}
-              height={40}
-              width={40}
-              onEnded={() => {
-                console.log("ended")
-                // setIsPlaying(true)
-              }}
-            />
-          )}
-        </div>
-        <div className="flex items-center justify-center p-3 mt-10 rounded-full w-fit ring-2 ring-ring">
-          <button onClick={handleTogglePlay}>
-            {isPlaying ? <PauseIcon /> : <PlayIcon />}
-          </button>
-        </div>
+        <AudioPlayer src={`/music/${musicPath}.mp3`} />
       </div>
 
       <div className="absolute bottom-10 right-5">
         <Button asChild>
-          <Link href={"/#templates"}>Creates Yours</Link>
+          <Link href={"/#templates"}>Create Yours</Link>
         </Button>
       </div>
     </main>
