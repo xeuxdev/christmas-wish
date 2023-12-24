@@ -54,7 +54,7 @@ export async function POST(request: Request) {
       wishId: saveMessage.wishId,
     },
     {
-      status: 200,
+      status: 201,
     }
   )
 }

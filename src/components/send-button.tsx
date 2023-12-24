@@ -64,7 +64,6 @@ export default function SendButton() {
 
     try {
       const result = await trigger(wish)
-      console.log(result)
       setResult(result)
       setOpenSuccessDialog(true)
     } catch (e) {
